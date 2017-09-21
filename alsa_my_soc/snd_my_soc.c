@@ -84,11 +84,11 @@ static const struct snd_soc_dapm_route audio_map[] = {
 static int my_soc_init(struct snd_soc_pcm_runtime *runtime)
 {
 	struct snd_soc_codec *codec = runtime->codec;
-
-	snd_soc_dapm_new_controls(&codec->dapm, my_soc_dapm_widgets,
+	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(&codec->component);
+	snd_soc_dapm_new_controls(dapm, my_soc_dapm_widgets,
 				  ARRAY_SIZE(my_soc_dapm_widgets));
-	snd_soc_dapm_add_routes(&codec->dapm, audio_map, ARRAY_SIZE(audio_map));
-	snd_soc_dapm_sync(&codec->dapm);
+	snd_soc_dapm_add_routes(dapm, audio_map, ARRAY_SIZE(audio_map));
+	snd_soc_dapm_sync(dapm);
 
 	return 0;
 }
