@@ -1,4 +1,4 @@
-CC = arm-linux-gnueabi-gcc
+CC = arm-linux-gnueabihf-gcc
 LIBS = -lasound
 all:
-	$(CC) -o aplay aplay.c $(LIBS) -static
+	$(CC) --sysroot=$(HOME)/workspace/rpi/sysroot -o aplay aplay.c $(LIBS)

@@ -10,7 +10,7 @@ static void ldt_dev_release(struct device *dev)
 
 static struct platform_device ldt_platform_device = {
 	.name	= "snd_pi_i2s_pcm",
-	.id	= -1,
+	.id	= 0,
 };
 
 static int ldt_plat_dev_init(void)

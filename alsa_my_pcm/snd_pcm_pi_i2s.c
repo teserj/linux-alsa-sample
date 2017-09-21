@@ -160,6 +160,7 @@ static int snd_mychip_pcm_trigger(struct snd_pcm_substream *substream,
         default:
                 return -EINVAL;
         }
+	return 0;
 }
 
 static unsigned int current_ptr = 0;
@@ -169,7 +170,7 @@ static snd_pcm_uframes_t
 snd_mychip_pcm_pointer(struct snd_pcm_substream *substream)
 {
         struct mychip *chip = snd_pcm_substream_chip(substream);
-        unsigned int current_ptr;
+        unsigned int current_ptr = 0;
 
         /* get the current hardware pointer */
         return (snd_pcm_uframes_t) current_ptr;
@@ -253,7 +254,9 @@ static int snd_pi_i2s_probe(struct platform_device *devptr)
 	struct snd_card *card;
 	int err;
 
-	err = snd_card_create(index[devptr->id], id[devptr->id], THIS_MODULE,
+	dev_info(&devptr->dev, "Probing pi_i2s driver...\n");
+
+	err = snd_card_new(NULL, index[devptr->id], id[devptr->id], THIS_MODULE,
 			      sizeof(struct mychip), &card);
 	if (err < 0)
 		return err;
